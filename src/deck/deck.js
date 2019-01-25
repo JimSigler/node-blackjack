@@ -30,14 +30,18 @@ values = [
   "King",
   "Ace"
 ];
-locales = ["Deck", "Hand", "Discard"];
+locales = {
+  DECK: "Deck",
+  HAND: "Hand",
+  DISCARD: "Discard"
+};
 
 function create() {
   for (let i = 0; i < 52; i++) {
     myDeck[i] = {
       suit: suits[i % 4],
       value: values[i % 13],
-      locale: locales[0]
+      locale: locales.DISCARD
     };
   }
 }
@@ -48,11 +52,11 @@ function shuffle() {
     const rando = random(0, 51);
     myDeck[i] = myDeck[rando];
     myDeck[rando] = tempCard;
-    if (myDeck[i].locale === locales[2]) {
-      myDeck[i].locale = locales[0];
+    if (myDeck[i].locale === locales.DISCARD) {
+      myDeck[i].locale = locales.DECK;
     }
-    if (myDeck[rando].locale === locales[2]) {
-      myDeck[rando].locale = locales[0];
+    if (myDeck[rando].locale === locales.DISCARD) {
+      myDeck[rando].locale = locales.DECK;
     }
   }
 }
