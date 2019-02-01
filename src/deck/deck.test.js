@@ -33,20 +33,11 @@ test("shuffle should randomize the cards", () => {
   expect(sameSpot).toBeLessThan(10);
 });
 
-test("the card has changed locale", () => {
+test("the dealt card has changed locale", () => {
   theShoe.create();
   let found = false;
   let card = theShoe.deal();
-  for (let i = 0; i < theShoe.myDeck.length; i++) {
-    if (
-      card.value === theShoe.myDeck[i].value &&
-      card.suit === theShoe.myDeck[i].suit &&
-      theShoe.myDeck[i].locale === theShoe.locales.HAND
-    ) {
-      found = true;
-    }
-  }
-  expect(found).toBe(true);
+  expect(theShoe.myDeck[0].locale).toBe(theShoe.locales.HAND);
 });
 
 test("the dealt card should be the first on a new deck", () => {
@@ -58,6 +49,9 @@ test("the dealt card should be the first on a new deck", () => {
 });
 
 test("when discarded all cards in hand should be in discard", () => {
+  // Since the deal gives out the first available card, all cards dealt
+  // from a newly created hand should be the first five.  This test
+  // works on that assumption
   theShoe.create();
   theCardsInHand = [];
   let cardsToDraw = 5;
