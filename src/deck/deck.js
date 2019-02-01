@@ -1,6 +1,11 @@
 const Random = require("random-js");
 myDeck = [];
 const random = new Random(Random.engines.mt19937().autoSeed());
+let locales = {
+  DECK: "Deck",
+  HAND: "Hand",
+  DISCARD: "Discard"
+};
 
 function Deck() {
   return {
@@ -8,7 +13,8 @@ function Deck() {
     shuffle,
     deal,
     discard,
-    myDeck
+    myDeck,
+    locales
   };
 }
 
@@ -30,18 +36,13 @@ values = [
   "King",
   "Ace"
 ];
-locales = {
-  DECK: "Deck",
-  HAND: "Hand",
-  DISCARD: "Discard"
-};
 
 function create() {
   for (let i = 0; i < 52; i++) {
     myDeck[i] = {
       suit: suits[i % 4],
       value: values[i % 13],
-      locale: locales.DISCARD
+      locale: locales.DECK
     };
   }
 }
@@ -64,6 +65,21 @@ function shuffle() {
   }
 }
 
-function deal() {}
+function deal() {
+  for (let i = 0; i < myDeck.length; i++) {
+    if (myDeck[i].locale === locales.DECK) {
+      myDeck[i].locale = locales.HAND;
+      let returnCard = myDeck[i];
+      return returnCard;
+    }
+  }
+  return null;
+}
 
-function discard() {}
+function discard() {
+  for (let i = 0; i < myDeck.length; i++) {
+    if (myDeck[i].locale === locales.HAND) {
+      myDeck[i].locale = locales.DISCARD;
+    }
+  }
+}
