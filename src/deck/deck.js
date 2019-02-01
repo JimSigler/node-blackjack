@@ -48,8 +48,11 @@ function create() {
 
 function shuffle() {
   for (let i = 0; i < myDeck.length; i++) {
+    if (myDeck.length < 1) {
+      create();
+    }
     const tempCard = myDeck[i];
-    const rando = random(0, 51);
+    const rando = random.integer(0, 51);
     myDeck[i] = myDeck[rando];
     myDeck[rando] = tempCard;
     if (myDeck[i].locale === locales.DISCARD) {
