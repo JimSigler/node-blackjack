@@ -38,6 +38,5 @@ test("should give the correct current total when stand", () => {
   tempCards.forEach(card => {
     calcTotal = calcTotal + player.getValue(card.value);
   });
-  console.log(total, calcTotal);
   expect(total).toBe(calcTotal);
 });
